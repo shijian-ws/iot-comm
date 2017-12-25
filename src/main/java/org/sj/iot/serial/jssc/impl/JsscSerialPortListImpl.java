@@ -25,8 +25,11 @@ public class JsscSerialPortListImpl implements ISerialPortList {
     private static final Map<String, ISerialPort> cacheSerialPort = new HashMap<>();
 
     static {
-        for (String name : snInterface.getSerialPortNames()) {
-            cacheSerialPort.put(name, new JsscSerialPortImpl(name));
+        String[] serialPortNames = snInterface.getSerialPortNames();
+        if (serialPortNames != null && serialPortNames.length > 0) {
+            for (String name : serialPortNames) {
+                cacheSerialPort.put(name, new JsscSerialPortImpl(name));
+            }
         }
     }
 
